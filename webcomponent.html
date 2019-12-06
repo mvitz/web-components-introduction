@@ -18,9 +18,6 @@
       <h4>Achtung</h4>
       <p>Etwas schlimmes ist passiert!</p>
     </my-alert>
-    <!--
-      <my-alert type="warn" title="Achtung" text="Etwas schlimmes ist passiert!"></my-alert>
-     -->
 
     <my-alert type="success">
       <h4>Gl&uuml;ckwunsch</h4>
@@ -28,15 +25,21 @@
     </my-alert>
 
     <script>
-      document.querySelectorAll('.alert').forEach(node => {
-        const button = document.createElement('button');
-        button.innerHTML = '&times;';
-        button.addEventListener('click', () => {
-          node.style.display = 'none';
-        });
+      class MyAlert extends HTMLElement {
+        connectedCallback() {
+          const button = document.createElement('button');
+          button.innerHTML = '&times;';
+          button.addEventListener('click', () => {
+            this.style.display = 'none';
+          });
 
-        node.insertBefore(button, node.firstChild);
-      });
+          this.prepend(button);
+          this.classList.add('alert-' + this.getAttribute('type'));
+          this.style.display = 'block';
+        }
+      }
+
+      customElements.define('my-alert', MyAlert);
     </script>
   </body>
 </html>
