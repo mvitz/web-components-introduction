@@ -24,5 +24,16 @@
       <p>Alles im gr&uuml;nen Bereich!</p>
     </div>
 
+    <script>
+      document.querySelectorAll('.alert').forEach(node => {
+        const button = document.createElement('button');
+        button.innerHTML = '&times;';
+        button.addEventListener('click', () => {
+          node.style.display = 'none';
+        });
+
+        node.insertBefore(button, node.firstChild);
+      });
+    </script>
   </body>
 </html>
