@@ -10,13 +10,13 @@
   <body>
 
     <my-alert type="warn">
-      <h4>Achtung</h4>
-      <p>Etwas schlimmes ist passiert!</p>
+      <h4 slot="title">Gef&auml;hrlich</h4>
+      <p slot="text">Etwas schlimmes ist passiert!</p>
     </my-alert>
 
     <my-alert type="success">
-      <h4>Gl&uuml;ckwunsch</h4>
-      <p>Alles im gr&uuml;nen Bereich!</p>
+      <h1 slot="title">Gl&uuml;ckwunsch</h1>
+      <p slot="text">Alles im gr&uuml;nen Bereich!</p>
     </my-alert>
 
     <template id="alert">
@@ -24,8 +24,8 @@
         .warn { border: 1px solid red; display: block; }
         .success { border: 1px solid green; display: block; }
       </style>
-      <h1>Achtung</h1>
-      <p>Achtung, Achtung!</p>
+      <slot name="title"><h1>Achtung</h1></slot>
+      <slot name="text"><p>Achtung, Achtung!</p></slot>
       <hr />
       <p>Ihnen wird nichts passieren. Versprochen!</p>
     </template>
