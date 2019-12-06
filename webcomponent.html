@@ -26,6 +26,11 @@
 
     <script>
       class MyAlert extends HTMLElement {
+        constructor() {
+          super();
+          this.attachShadow({mode: 'open'});
+        }
+
         connectedCallback() {
           const button = document.createElement('button');
           button.innerHTML = '&times;';
@@ -33,9 +38,15 @@
             this.style.display = 'none';
           });
 
-          this.prepend(button);
-          this.classList.add('alert-' + this.getAttribute('type'));
-          this.style.display = 'block';
+          const wrapper = document.createElement('div');
+          wrapper.classList.add('alert-' + this.getAttribute('type'));
+
+          wrapper.appendChild(button);
+          this.childNodes.forEach(node => {
+            wrapper.appendChild(node.cloneNode(true));
+          });
+
+          this.shadowRoot.appendChild(wrapper);
         }
       }
 
