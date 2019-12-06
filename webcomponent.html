@@ -6,11 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <title>Web Component</title>
-
-    <style>
-      .alert-warn { border: 1px solid red; }
-      .alert-success { border: 1px solid green; }
-    </style>
   </head>
   <body>
 
@@ -28,10 +23,16 @@
       class MyAlert extends HTMLElement {
         constructor() {
           super();
+          // document.querySelectorAll('my-alert')[0].shadowRoot.querySelector('.warn')
           this.attachShadow({mode: 'open'});
         }
 
         connectedCallback() {
+          const style = document.createElement('style');
+          style.textContent = `
+            .warn { border: 1px solid red; display: block; }
+            .success { border: 1px solid green; display: block; }`;
+
           const button = document.createElement('button');
           button.innerHTML = '&times;';
           button.addEventListener('click', () => {
@@ -39,8 +40,9 @@
           });
 
           const wrapper = document.createElement('div');
-          wrapper.classList.add('alert-' + this.getAttribute('type'));
+          wrapper.classList.add(this.getAttribute('type'));
 
+          wrapper.appendChild(style);
           wrapper.appendChild(button);
           this.childNodes.forEach(node => {
             wrapper.appendChild(node.cloneNode(true));
