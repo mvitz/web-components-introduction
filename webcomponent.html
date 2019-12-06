@@ -19,34 +19,37 @@
       <p>Alles im gr&uuml;nen Bereich!</p>
     </my-alert>
 
+    <template id="alert">
+      <style>
+        .warn { border: 1px solid red; display: block; }
+        .success { border: 1px solid green; display: block; }
+      </style>
+      <h1>Achtung</h1>
+      <p>Achtung, Achtung!</p>
+      <hr />
+      <p>Ihnen wird nichts passieren. Versprochen!</p>
+    </template>
+
     <script>
       class MyAlert extends HTMLElement {
         constructor() {
           super();
-          // document.querySelectorAll('my-alert')[0].shadowRoot.querySelector('.warn')
           this.shadow = this.attachShadow({mode: 'closed'});
         }
 
         connectedCallback() {
-          const style = document.createElement('style');
-          style.textContent = `
-            .warn { border: 1px solid red; display: block; }
-            .success { border: 1px solid green; display: block; }`;
-
           const button = document.createElement('button');
           button.innerHTML = '&times;';
           button.addEventListener('click', () => {
             this.style.display = 'none';
           });
 
+          const template = document.getElementById('alert').content;
+
           const wrapper = document.createElement('div');
           wrapper.classList.add(this.getAttribute('type'));
-
-          wrapper.appendChild(style);
           wrapper.appendChild(button);
-          this.childNodes.forEach(node => {
-            wrapper.appendChild(node.cloneNode(true));
-          });
+          wrapper.appendChild(template.cloneNode(true));
 
           this.shadow.appendChild(wrapper);
         }
