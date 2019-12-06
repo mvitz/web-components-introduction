@@ -14,15 +14,18 @@
   </head>
   <body>
 
-    <div class="alert alert-warn">
+    <my-alert type="warn">
       <h4>Achtung</h4>
       <p>Etwas schlimmes ist passiert!</p>
-    </div>
+    </my-alert>
+    <!--
+      <my-alert type="warn" title="Achtung" text="Etwas schlimmes ist passiert!"></my-alert>
+     -->
 
-    <div class="alert alert-success">
+    <my-alert type="success">
       <h4>Gl&uuml;ckwunsch</h4>
       <p>Alles im gr&uuml;nen Bereich!</p>
-    </div>
+    </my-alert>
 
     <script>
       document.querySelectorAll('.alert').forEach(node => {
